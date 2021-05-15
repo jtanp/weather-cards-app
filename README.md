@@ -4,4 +4,4 @@ Application that lets users search weather data using OpenWeatherMap api. The ap
 
 ## Page
 
-![page](page.png)
+![page](page.PNG)
