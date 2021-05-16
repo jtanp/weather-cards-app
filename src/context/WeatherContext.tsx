@@ -5,9 +5,9 @@ interface Context {
   city: string;
   setCity: (city: string) => void;
   cityData: City;
-  setCityData: (city: City) => void;
+  setCityData: (cityData: City) => void;
   weatherData: Weather;
-  setWeatherData: (weather: Weather) => void;
+  setWeatherData: (weatherData: Weather) => void;
 }
 
 const initialState = {
@@ -27,8 +27,8 @@ export const WeatherContext = createContext<Context>(initialState);
 
 export const WeatherProvider = ({ children }: Props) => {
   const [city, setCity] = useState("");
-  const [cityData, setCityData] = useState({} as City); //Any
-  const [weatherData, setWeatherData] = useState({} as Weather); //Any
+  const [cityData, setCityData] = useState({} as City);
+  const [weatherData, setWeatherData] = useState({} as Weather);
 
   return (
     <WeatherContext.Provider

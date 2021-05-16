@@ -11,29 +11,27 @@ const Header = () => {
     e.preventDefault();
     const data = await getData(city);
     if (data !== undefined) {
-      console.log(data);
+      //console.log(data);
       setCityData(data.cityData[0]);
       setWeatherData(data.weatherData);
     }
   };
 
   return (
-    <SearchContainer>
-      <form onSubmit={submit}>
-        <Title>Weather cards</Title>
-        <Input
-          type="text"
-          name="city"
-          placeholder="City"
-          onChange={(e) => setCity(e.target.value)}
-        />
-        <Button type="submit">Search</Button>
-      </form>
-    </SearchContainer>
+    <Form onSubmit={submit}>
+      <Title>Weather cards</Title>
+      <Input
+        type="text"
+        name="city"
+        placeholder="City"
+        onChange={(e) => setCity(e.target.value)}
+      />
+      <Button type="submit">Search</Button>
+    </Form>
   );
 };
 
-const SearchContainer = styled.div`
+const Form = styled.form`
   display: inline-block;
   width: 90%;
   height: 10vh;
