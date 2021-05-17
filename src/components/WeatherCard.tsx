@@ -30,13 +30,20 @@ const WeatherCard = ({ id }: Props) => {
           </WeatherIcon>
           <TemperatureContainer>
             <DayTemperature>
-              {weatherData.daily[id].temp.day.toFixed(1)}°C
+              {weatherData.daily[id].temp.day.toFixed(1)}
+              {weatherData.unit.symbol}
             </DayTemperature>
             <MaxMinContainer>
               <img src="/icons/arrows.png" alt="" width="32" height="32" />
               <MaxMinData>
-                <p>{weatherData.daily[id].temp.max.toFixed(1)}°C</p>
-                <p>{weatherData.daily[id].temp.min.toFixed(1)}°C</p>
+                <p>
+                  {weatherData.daily[id].temp.max.toFixed(1)}
+                  {weatherData.unit.symbol}
+                </p>
+                <p>
+                  {weatherData.daily[id].temp.min.toFixed(1)}
+                  {weatherData.unit.symbol}
+                </p>
               </MaxMinData>
             </MaxMinContainer>
           </TemperatureContainer>

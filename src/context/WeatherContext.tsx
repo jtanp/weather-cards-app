@@ -1,22 +1,21 @@
 import React, { createContext, useState, ReactNode } from "react";
 import { City, Weather } from "../types";
+import { getData } from "../api";
 
 interface Context {
-  city: string;
-  setCity: (city: string) => void;
   cityData: City;
-  setCityData: (cityData: City) => void;
   weatherData: Weather;
-  setWeatherData: (weatherData: Weather) => void;
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  handleCityChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleUnitChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 const initialState = {
-  city: "",
-  setCity: () => "",
   cityData: {} as City,
-  setCityData: () => {},
   weatherData: {} as Weather,
-  setWeatherData: () => {},
+  handleSubmit: () => {},
+  handleCityChange: () => {},
+  handleUnitChange: () => {},
 };
 
 interface Props {
@@ -29,16 +28,36 @@ export const WeatherProvider = ({ children }: Props) => {
   const [city, setCity] = useState("");
   const [cityData, setCityData] = useState({} as City);
   const [weatherData, setWeatherData] = useState({} as Weather);
+  const [unit, setUnit] = useState({ type: "metric", symbol: "°C" });
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const data = await getData(city, unit.type);
+    if (data !== undefined) {
+      //console.log(data);
+      setCityData(data.cityData[0]);
+      setWeatherData({ ...data.weatherData, unit: unit });
+    }
+  };
+
+  const handleCityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCity(e.target.value);
+  };
+
+  const handleUnitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const type = e.target.value;
+    const symbol = e.target.options[e.target.selectedIndex].text;
+    setUnit({ type: type, symbol: symbol });
+  };
 
   return (
     <WeatherContext.Provider
       value={{
-        city,
-        setCity,
         cityData,
-        setCityData,
         weatherData,
-        setWeatherData,
+        handleSubmit,
+        handleCityChange,
+        handleUnitChange,
       }}
     >
       {children}

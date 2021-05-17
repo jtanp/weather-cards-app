@@ -36,6 +36,7 @@ export interface Weather {
   current?: WeatherCurrent;
   daily: WeatherDaily[];
   hourly?: WeatherHourly[];
+  unit: Unit;
 }
 
 export interface WeatherHourly {
@@ -114,4 +115,9 @@ export interface WeatherInfo {
   main: string;
   description: string;
   icon: string;
+}
+
+export interface Unit {
+  type: string;
+  symbol: string;
 }
