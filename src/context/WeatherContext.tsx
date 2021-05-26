@@ -1,18 +1,18 @@
 import React, { createContext, useState, ReactNode } from "react";
-import { City, Weather } from "../types";
+import { City, Unit, Weather } from "../types";
 import { getData } from "../api";
 
 interface Context {
-  cityData: City;
-  weatherData: Weather;
+  cityData: City | null;
+  weatherData: Weather | null;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   handleCityChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleUnitChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 const initialState = {
-  cityData: {} as City,
-  weatherData: {} as Weather,
+  cityData: null,
+  weatherData: null,
   handleSubmit: () => {},
   handleCityChange: () => {},
   handleUnitChange: () => {},
@@ -26,9 +26,9 @@ export const WeatherContext = createContext<Context>(initialState);
 
 export const WeatherProvider = ({ children }: Props) => {
   const [city, setCity] = useState("");
-  const [cityData, setCityData] = useState({} as City);
-  const [weatherData, setWeatherData] = useState({} as Weather);
-  const [unit, setUnit] = useState({ type: "metric", symbol: "°C" });
+  const [cityData, setCityData] = useState<City | null>(null);
+  const [weatherData, setWeatherData] = useState<Weather | null>(null);
+  const [unit, setUnit] = useState<Unit>({ type: "metric", symbol: "°C" });
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

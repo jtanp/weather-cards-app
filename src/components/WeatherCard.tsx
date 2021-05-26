@@ -12,7 +12,7 @@ const WeatherCard = ({ id }: Props) => {
 
   return (
     <>
-      {weatherData.daily !== undefined ? (
+      {cityData && weatherData ? (
         <Card>
           <Info>
             <h1>
