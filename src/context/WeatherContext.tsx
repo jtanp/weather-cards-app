@@ -5,6 +5,7 @@ import { getData } from "../api";
 interface Context {
   cityData: City | null;
   weatherData: Weather | null;
+  loading: boolean;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   handleCityChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleUnitChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -13,6 +14,7 @@ interface Context {
 const initialState = {
   cityData: null,
   weatherData: null,
+  loading: false,
   handleSubmit: () => {},
   handleCityChange: () => {},
   handleUnitChange: () => {},
@@ -29,15 +31,18 @@ export const WeatherProvider = ({ children }: Props) => {
   const [cityData, setCityData] = useState<City | null>(null);
   const [weatherData, setWeatherData] = useState<Weather | null>(null);
   const [unit, setUnit] = useState<Unit>({ type: "metric", symbol: "°C" });
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     const data = await getData(city, unit.type);
     if (data !== undefined) {
       //console.log(data);
       setCityData(data.cityData[0]);
       setWeatherData({ ...data.weatherData, unit: unit });
     }
+    setLoading(false);
   };
 
   const handleCityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,6 +60,7 @@ export const WeatherProvider = ({ children }: Props) => {
       value={{
         cityData,
         weatherData,
+        loading,
         handleSubmit,
         handleCityChange,
         handleUnitChange,

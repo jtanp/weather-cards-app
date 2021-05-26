@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
 import { WeatherContext } from "../context/WeatherContext";
 import styled from "styled-components";
+import { Loader } from ".";
 
 const Header = () => {
-  const { handleSubmit, handleCityChange, handleUnitChange } =
+  const { handleSubmit, handleCityChange, handleUnitChange, loading } =
     useContext(WeatherContext);
 
   return (
@@ -21,6 +22,7 @@ const Header = () => {
         <Option value="standard"> K</Option>
       </Select>
       <Button type="submit">Search</Button>
+      {loading ? <Loader /> : null}
     </Form>
   );
 };
@@ -28,9 +30,8 @@ const Header = () => {
 const Form = styled.form`
   display: inline-block;
   width: 90%;
-  height: 10vh;
+  height: 20vh;
   margin-top: 30px;
-  margin-bottom: 30px;
 `;
 
 const Title = styled.h1`
